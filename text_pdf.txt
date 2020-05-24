@@ -1,0 +1,908 @@
+27.9 An example: intrusive containers
+
+Part V Appendices
+
+Appendix A Language Summary
+
+A.1 General
+
+A.1.1 Terminology
+A.1.2 Program start and termination
+A.1.3 Comments
+
+A.4 Scope, storage class, and lifetime
+
+A.2 Literals
+
+A.2.1 Integer literals
+A.2.2 Floating-point-literals
+A.2.3 Boolean literals
+A.2.4 Character literals
+A.2.5 String literals
+A.2.6 The pointer literal
+
+A.3 Identifiers
+
+A.3.1 Keywords
+
+A.4.1 Scope
+A.4.2 Storage class
+A.4.3 Lifetime
+
+A.5 Expressions
+
+A.5.1 User-defined operators
+A.5.2 Implicit type conversion
+A.5.3 Constant expressions
+
+A.5.4 sizeof
+A.5.5 Logical expressions
+A.5.6 new and delete
+A.5.7 Casts
+A.6 Statements
+
+A.7 Declarations
+
+A.7.1 Definitions
+
+A.8 Built-in types
+A.8.1 Pointers
+A.8.2 Arrays
+A.8.3 References
+
+A.9 Functions
+
+A.9.1 Overload resolution
+A.9.2 Default arguments
+A.9.3 Unspecified arguments
+A.9.4 Linkage specifications
+
+A.10 User-defined types
+
+A.10.1 Operator overloading
+
+A.11 Enumerations
+
+A.12 Classes
+
+A.12.1 Member access
+A.12.2 Class member definitions
+A.12.3 Construction, destruction, and copy
+A.12.4 Derived classes
+A.12.5 Bitfields
+A.12.6 Unions
+
+A.13 Templates
+
+A.13.1 Template arguments
+A.13.2 Template instantiation
+A.13.3 Template member types
+
+A.14 Exceptions
+
+A.15 Namespaces
+A.16 Aliases
+
+A.17 Preprocessor directives
+
+A.17.1 #include
+
+A.17.2 #define
+
+Appendix B Standard Library Summary
+
+B.1 Overview
+
+B.1.1 Header files
+
+B.1.2 Namespace std
+B.1.3 Description style
+
+B.2 Error handling
+
+B.2.1 Exceptions
+
+B.3 Iterators
+
+B.3.1 Iterator model
+B.3.2 Iterator categories
+
+B.4 Containers
+
+B.4.1 Overview
+B.4.2 Member types
+B.4.3 Constructors, destructors, and assignments
+B.4.4 Iterators
+B.4.5 Element access
+B.4.6 Stack and queue operations
+B.4.7 List operations
+B.4.8 Size and capacity
+B.4.9 Other operations
+B.4.10 Associative container operations
+
+B.5 Algorithms
+
+B.5.1 Nonmodifying sequence algorithms
+B.5.2 Modifying sequence algorithms
+B.5.3 Utility algorithms
+B.5.4 Sorting and searching
+B.5.5 Set algorithms
+B.5.6 Heaps
+B.5.7 Permutations
+
+B.5.8 min and max
+
+B.6 STL utilities
+
+B.6.1 Inserters
+B.6.2 Function objects
+B.6.3 pair and tuple
+
+B.6.4 initializer_list
+B.6.5 Resource management pointers
+
+B.7 I/O streams
+
+B.7.1 I/O streams hierarchy
+B.7.2 Error handling
+B.7.3 Input operations
+B.7.4 Output operations
+B.7.5 Formatting
+B.7.6 Standard manipulators
+
+B.8 String manipulation
+
+B.8.1 Character classification
+B.8.2 String
+
+B.8.3 Regular expression matching
+
+B.9 Numerics
+
+B.9.1 Numerical limits
+B.9.2 Standard mathematical functions
+B.9.3 Complex
+B.9.4 valarray
+B.9.5 Generalized numerical algorithms
+B.9.6 Random numbers
+
+B.10 Time
+
+B.11 C standard library functions
+
+B.11.1 Files
+
+B.11.2 The printf() family
+B.11.3 C-style strings
+B.11.4 Memory
+B.11.5 Date and time
+B.11.6 Etc.
+
+B.12 Other libraries
+
+Appendix C Getting Started with Visual Studio
+
+C.1 Getting a program to run
+
+C.2 Installing Visual Studio
+
+C.3 Creating and running a program
+C.3.1 Create a new project
+C.3.2 Use the std_lib_facilities.h header file
+C.3.3 Add a C++ source file to the project
+C.3.4 Enter your source code
+C.3.5 Build an executable program
+C.3.6 Execute the program
+C.3.7 Save the program
+
+C.4 Later
+
+Appendix D Installing FLTK
+
+D.1 Introduction
+
+D.2 Downloading FLTK
+D.3 Installing FLTK
+D.4 Using FLTK in Visual Studio
+
+D.5 Testing if it all worked
+
+Appendix E GUI Implementation
+
+E.1 Callback implementation
+
+E.2 Widget implementation
+
+E.3 Window implementation
+
+E.4 Vector_ref
+
+E.5 An example: manipulating Widgets
+
+Glossary
+
+Bibliography
+
+Index
+
+Preface
+
+“Damn the torpedoes! Full speed ahead.”
+
+—Admiral Farragut
+
+Programming is the art of expressing solutions to problems so that a computer can execute those
+solutions. Much of the effort in programming is spent finding and refining solutions. Often, a problem
+is only fully understood through the process of programming a solution for it.
+
+This book is for someone who has never programmed before but is willing to work hard to learn. It
+
+helps you understand the principles and acquire the practical skills of programming using the C++
+programming language. My aim is for you to gain sufficient knowledge and experience to perform
+simple useful programming tasks using the best up-to-date techniques. How long will that take? As
+part of a first-year university course, you can work through this book in a semester (assuming that you
+have a workload of four courses of average difficulty). If you work by yourself, don’t expect to spend
+less time than that (maybe 15 hours a week for 14 weeks).
+
+Three months may seem a long time, but there’s a lot to learn and you’ll be writing your first simple
+
+programs after about an hour. Also, all learning is gradual: each chapter introduces new useful
+concepts and illustrates them with examples inspired by real-world uses. Your ability to express
+ideas in code — getting a computer to do what you want it to do — gradually and steadily increases
+as you go along. I never say, “Learn a month’s worth of theory and then see if you can use it.”
+Why would you want to program? Our civilization runs on software. Without understanding
+software you are reduced to believing in “magic” and will be locked out of many of the most
+interesting, profitable, and socially useful technical fields of work. When I talk about programming, I
+think of the whole spectrum of computer programs from personal computer applications with GUIs
+(graphical user interfaces), through engineering calculations and embedded systems control
+applications (such as digital cameras, cars, and cell phones), to text manipulation applications as
+found in many humanities and business applications. Like mathematics, programming — when done
+well — is a valuable intellectual exercise that sharpens our ability to think. However, thanks to
+feedback from the computer, programming is more concrete than most forms of math, and therefore
+accessible to more people. It is a way to reach out and change the world – ideally for the better.
+Finally, programming can be great fun.
+
+Why C++? You can’t learn to program without a programming language, and C++ directly supports
+
+the key concepts and techniques used in real-world software. C++ is one of the most widely used
+programming languages, found in an unsurpassed range of application areas. You find C++
+applications everywhere from the bottom of the oceans to the surface of Mars. C++ is precisely and
+comprehensively defined by a nonproprietary international standard. Quality and/or free
+implementations are available on every kind of computer. Most of the programming concepts that you
+will learn using C++ can be used directly in other languages, such as C, C#, Fortran, and Java.
+Finally, I simply like C++ as a language for writing elegant and efficient code.
+
+This is not the easiest book on beginning programming; it is not meant to be. I just aim for it to be
+
+the easiest book from which you can learn the basics of real-world programming. That’s quite an
+ambitious goal because much modern software relies on techniques considered advanced just a few
+
+years ago.
+
+My fundamental assumption is that you want to write programs for the use of others, and to do so
+responsibly, providing a decent level of system quality; that is, I assume that you want to achieve a
+level of professionalism. Consequently, I chose the topics for this book to cover what is needed to get
+started with real-world programming, not just what is easy to teach and learn. If you need a technique
+to get basic work done right, I describe it, demonstrate concepts and language facilities needed to
+support the technique, provide exercises for it, and expect you to work on those exercises. If you just
+want to understand toy programs, you can get along with far less than I present. On the other hand, I
+won’t waste your time with material of marginal practical importance. If an idea is explained here,
+it’s because you’ll almost certainly need it.
+
+If your desire is to use the work of others without understanding how things are done and without
+adding significantly to the code yourself, this book is not for you. If so, please consider whether you
+would be better served by another book and another language. If that is approximately your view of
+programming, please also consider from where you got that view and whether it in fact is adequate
+for your needs. People often underestimate the complexity of programming as well as its value. I
+would hate for you to acquire a dislike for programming because of a mismatch between what you
+need and the part of the software reality I describe. There are many parts of the “information
+technology” world that do not require knowledge of programming. This book is aimed to serve those
+who do want to write or understand nontrivial programs.
+
+Because of its structure and practical aims, this book can also be used as a second book on
+
+programming for someone who already knows a bit of C++ or for someone who programs in another
+language and wants to learn C++. If you fit into one of those categories, I refrain from guessing how
+long it will take you to read this book, but I do encourage you to do many of the exercises. This will
+help you to counteract the common problem of writing programs in older, familiar styles rather than
+adopting newer techniques where these are more appropriate. If you have learned C++ in one of the
+more traditional ways, you’ll find something surprising and useful before you reach Chapter 7. Unless
+your name is Stroustrup, what I discuss here is not “your father’s C++.”
+
+Programming is learned by writing programs. In this, programming is similar to other endeavors
+with a practical component. You cannot learn to swim, to play a musical instrument, or to drive a car
+just from reading a book — you must practice. Nor can you learn to program without reading and
+writing lots of code. This book focuses on code examples closely tied to explanatory text and
+diagrams. You need those to understand the ideals, concepts, and principles of programming and to
+master the language constructs used to express them. That’s essential, but by itself, it will not give you
+the practical skills of programming. For that, you need to do the exercises and get used to the tools for
+writing, compiling, and running programs. You need to make your own mistakes and learn to correct
+them. There is no substitute for writing code. Besides, that’s where the fun is!
+
+On the other hand, there is more to programming — much more — than following a few rules and
+reading the manual. This book is emphatically not focused on “the syntax of C++.” Understanding the
+fundamental ideals, principles, and techniques is the essence of a good programmer. Only well-
+designed code has a chance of becoming part of a correct, reliable, and maintainable system. Also,
+“the fundamentals” are what last: they will still be essential after today’s languages and tools have
+evolved or been replaced.
+
+What about computer science, software engineering, information technology, etc.? Is that all
+
+programming? Of course not! Programming is one of the fundamental topics that underlie everything
+
+in computer-related fields, and it has a natural place in a balanced course of computer science. I
+provide brief introductions to key concepts and techniques of algorithms, data structures, user
+interfaces, data processing, and software engineering. However, this book is not a substitute for a
+thorough and balanced study of those topics.
+
+Code can be beautiful as well as useful. This book is written to help you see that, to understand
+
+what it means for code to be beautiful, and to help you to master the principles and acquire the
+practical skills to create such code. Good luck with programming!
+
+A note to students
+Of the many thousands of first-year students we have taught so far using this book at Texas A&M
+University, about 60% had programmed before and about 40% had never seen a line of code in their
+lives. Most succeeded, so you can do it, too.
+
+You don’t have to read this book as part of a course. The book is widely used for self-study.
+
+However, whether you work your way through as part of a course or independently, try to work with
+others. Programming has an — unfair — reputation as a lonely activity. Most people work better and
+learn faster when they are part of a group with a common aim. Learning together and discussing
+problems with friends is not cheating! It is the most efficient — as well as most pleasant — way of
+making progress. If nothing else, working with friends forces you to articulate your ideas, which is
+just about the most efficient way of testing your understanding and making sure you remember. You
+don’t actually have to personally discover the answer to every obscure language and programming
+environment problem. However, please don’t cheat yourself by not doing the drills and a fair number
+of exercises (even if no teacher forces you to do them). Remember: programming is (among other
+things) a practical skill that you need to practice to master. If you don’t write code (do several
+exercises for each chapter), reading this book will be a pointless theoretical exercise.
+
+Most students — especially thoughtful good students — face times when they wonder whether their
+
+hard work is worthwhile. When (not if) this happens to you, take a break, reread this Preface, and
+look at Chapter 1 (“Computers, People, and Programming”) and Chapter 22 (“Ideals and History”).
+There, I try to articulate what I find exciting about programming and why I consider it a crucial tool
+for making a positive contribution to the world. If you wonder about my teaching philosophy and
+general approach, have a look at Chapter 0 (“Notes to the Reader”).
+
+You might find the weight of this book worrying, but it should reassure you that part of the reason
+for the heft is that I prefer to repeat an explanation or add an example rather than have you search for
+the one and only explanation. The other major reason is that the second half of the book is reference
+material and “additional material” presented for you to explore only if you are interested in more
+information about a specific area of programming, such as embedded systems programming, text
+analysis, or numerical computation.
+
+And please don’t be too impatient. Learning any major new and valuable skill takes time and is
+
+worth it.
+
+A note to teachers
+No. This is not a traditional Computer Science 101 course. It is a book about how to construct
+working software. As such, it leaves out much of what a computer science student is traditionally
+exposed to (Turing completeness, state machines, discrete math, Chomsky grammars, etc.). Even
+hardware is ignored on the assumption that students have used computers in various ways since
+kindergarten. This book does not even try to mention most important CS topics. It is about
+programming (or more generally about how to develop software), and as such it goes into more detail
+about fewer topics than many traditional courses. It tries to do just one thing well, and computer
+science is not a one-course topic. If this book/course is used as part of a computer science, computer
+engineering, electrical engineering (many of our first students were EE majors), information science,
+or whatever program, I expect it to be taught alongside other courses as part of a well-rounded
+introduction.
+
+Please read Chapter 0 (“Notes to the Reader”) for an explanation of my teaching philosophy,
+
+general approach, etc. Please try to convey those ideas to your students along the way.
+
+ISO standard C++
+C++ is defined by an ISO standard. The first ISO C++ standard was ratified in 1998, so that version
+of C++ is known as C++98. I wrote the first edition of this book while working on the design of
+C++11. It was most frustrating not to be able to use the novel features (such as uniform initialization,
+range-for-loops, move semantics, lambdas, and concepts) to simplify the presentation of principles
+and techniques. However, the book was designed with C++11 in mind, so it was relatively easy to
+“drop in” the features in the contexts where they belonged. As of this writing, the current standard is
+C++11 from 2011, and facilities from the upcoming 2014 ISO standard, C++14, are finding their way
+into mainstream C++ implementations. The language used in this book is C++11 with a few C++14
+features. For example, if your compiler complains about
+
+Click here to view code image
+
+vector<int> v1;
+vector<int> v2 {v1};        // C++14-style copy construction
+
+use
+
+Click here to view code image
+
+vector<int> v1;
+vector<int> v2 = v1;        // C++98-style copy construction
+
+instead.
+
+If your compiler does not support C++11, get a new compiler. Good, modern C++ compilers can
+
+be downloaded from a variety of suppliers; see www.stroustrup.com/compilers.html. Learning to
+program using an earlier and less supportive version of the language can be unnecessarily hard.
+
+Support
+The book’s support website, www.stroustrup.com/Programming, contains a variety of material
+supporting the teaching and learning of programming using this book. The material is likely to be
+improved with time, but for starters, you can find
+
+• Slides for lectures based on the book
+• An instructor’s guide
+• Header files and implementations of libraries used in the book
+• Code for examples in the book
+• Solutions to selected exercises
+• Potentially useful links
+• Errata
+
+Suggestions for improvements are always welcome.
+
+Acknowledgments
+I’d especially like to thank my late colleague and co-teacher Lawrence “Pete” Petersen for
+encouraging me to tackle the task of teaching beginners long before I’d otherwise have felt
+comfortable doing that, and for supplying the practical teaching experience to make the course
+succeed. Without him, the first version of the course would have been a failure. We worked together
+on the first versions of the course for which this book was designed and together taught it repeatedly,
+learning from our experiences, improving the course and the book. My use of “we” in this book
+initially meant “Pete and me.”
+
+Thanks to the students, teaching assistants, and peer teachers of ENGR 112, ENGR 113, and CSCE
+
+121 at Texas A&M University who directly and indirectly helped us construct this book, and to
+Walter Daugherity, Hyunyoung Lee, Teresa Leyk, Ronnie Ward, and Jennifer Welch, who have also
+taught the course. Also thanks to Damian Dechev, Tracy Hammond, Arne Tolstrup Madsen, Gabriel
+Dos Reis, Nicholas Stroustrup, J. C. van Winkel, Greg Versoonder, Ronnie Ward, and Leor Zolman
+for constructive comments on drafts of this book. Thanks to Mogens Hansen for explaining about
+engine control software. Thanks to Al Aho, Stephen Edwards, Brian Kernighan, and Daisy Nguyen
+for helping me hide away from distractions to get writing done during the summers.
+
+Thanks to Art Werschulz for many constructive comments based on his use of the first edition of
+this book in courses at Fordham University in New York City and to Nick Maclaren for many detailed
+comments on the exercises based on his use of the first edition of this book at Cambridge University.
+His students had dramatically different backgrounds and professional needs from the TAMU first-year
+students.
+
+Thanks to the reviewers that Addison-Wesley found for me. Their comments, mostly based on
+teaching either C++ or Computer Science 101 at the college level, have been invaluable: Richard
+Enbody, David Gustafson, Ron McCarty, and K. Narayanaswamy. Also thanks to my editor, Peter
+Gordon, for many useful comments and (not least) for his patience. I’m very grateful to the production
+team assembled by Addison-Wesley; they added much to the quality of the book: Linda Begley
+(proofreader), Kim Arney (compositor), Rob Mauhar (illustrator), Julie Nahil (production editor),
+and Barbara Wood (copy editor).
+
+Thanks to the translators of the first edition, who found many problems and helped clarify many
+points. In particular, Loïc Joly and Michel Michaud did a thorough technical review of the French
+translation that led to many improvements.
+
+I would also like to thank Brian Kernighan and Doug McIlroy for setting a very high standard for
+writing about programming, and Dennis Ritchie and Kristen Nygaard for providing valuable lessons
+
+in practical language design.
+
+0: Notes to the Reader
+
+“When the terrain disagrees with
+the map, trust the terrain.”
+
+—Swiss army proverb
+
+This chapter is a grab bag of information; it aims to give you an idea of what to expect from the rest
+of the book. Please skim through it and read what you find interesting. A teacher will find most parts
+immediately useful. If you are reading this book without the benefit of a good teacher, please don’t try
+to read and understand everything in this chapter; just look at “The structure of this book” and the first
+part of the “A philosophy of teaching and learning” sections. You may want to return and reread this
+chapter once you feel comfortable writing and executing small programs.
+
+0.1 The structure of this book
+
+0.1.1 General approach
+0.1.2 Drills, exercises, etc.
+0.1.3 What comes after this book?
+
+0.2 A philosophy of teaching and learning
+
+0.2.1 The order of topics
+0.2.2 Programming and programming language
+
+0.2.3 Portability
+
+0.3 Programming and computer science
+0.4 Creativity and problem solving
+
+0.5 Request for feedback
+0.6 References
+0.7 Biographies
+
+0.1 The structure of this book
+This book consists of four parts and a collection of appendices:
+
+• Part I, “The Basics,” presents the fundamental concepts and techniques of programming
+together with the C++ language and library facilities needed to get started writing code. This
+includes the type system, arithmetic operations, control structures, error handling, and the
+design, implementation, and use of functions and user-defined types.
+• Part II, “Input and Output,” describes how to get numeric and text data from the keyboard and
+from files, and how to produce corresponding output to the screen and to files. Then, it shows
+how to present numeric data, text, and geometric shapes as graphical output, and how to get
+input into a program from a graphical user interface (GUI).
+• Part III, “Data and Algorithms,” focuses on the C++ standard library’s containers and
+
+algorithms framework (the STL, standard template library). It shows how containers (such as
+vector, list, and map) are implemented (using pointers, arrays, dynamic memory, exceptions,
+and templates) and used. It also demonstrates the design and use of standard library algorithms
+(such as sort, find, and inner_product).
+• Part IV, “Broadening the View,” offers a perspective on programming through a discussion of
+ideals and history, through examples (such as matrix computation, text manipulation, testing, and
+embedded systems programming), and through a brief description of the C language.
+• Appendices provide useful information that doesn’t fit into a tutorial presentation, such as
+surveys of C++ language and standard library facilities, and descriptions of how to get started
+with an integrated development environment (IDE) and a graphical user interface (GUI) library.
+
+Unfortunately, the world of programming doesn’t really fall into four cleanly separated parts.
+Therefore, the “parts” of this book provide only a coarse classification of topics. We consider it a
+useful classification (obviously, or we wouldn’t have used it), but reality has a way of escaping neat
+classifications. For example, we need to use input operations far sooner than we can give a thorough
+explanation of C++ standard I/O streams (input/output streams). Where the set of topics needed to
+present an idea conflicts with the overall classification, we explain the minimum needed for a good
+presentation, rather than just referring to the complete explanation elsewhere. Rigid classifications
+work much better for manuals than for tutorials.
+
+The order of topics is determined by programming techniques, rather than programming language
+
+features; see §0.2. For a presentation organized around language features, see Appendix A.
+
+To ease review and to help you if you miss a key point during a first reading where you have yet to
+discover which kind of information is crucial, we place three kinds of “alert markers” in the margin:
+
+• Blue: concepts and techniques (this paragraph is an example of that)
+• Green: advice
+• Red: warning
+
+0.1.1 General approach
+In this book, we address you directly. That is simpler and clearer than the conventional
+“professional” indirect form of address, as found in most scientific papers. By “you” we mean “you,
+the reader,” and by “we” we refer either to “ourselves, the author and teachers,” or to you and us
+working together through a problem, as we might have done had we been in the same room.
+
+This book is designed to be read chapter by chapter from the beginning to the end. Often, you’ll
+
+want to go back to look at something a second or a third time. In fact, that’s the only sensible
+approach, as you’ll always dash past some details that you don’t yet see the point in. In such cases,
+you’ll eventually go back again. However, despite the index and the cross-references, this is not a
+book that you can open to any page and start reading with any expectation of success. Each section
+and each chapter assume understanding of what came before.
+
+Each chapter is a reasonably self-contained unit, meant to be read in “one sitting” (logically, if not
+
+always feasible on a student’s tight schedule). That’s one major criterion for separating the text into
+chapters. Other criteria include that a chapter is a suitable unit for drills and exercises and that each
+chapter presents some specific concept, idea, or technique. This plurality of criteria has left a few
+chapters uncomfortably long, so please don’t take “in one sitting” too literally. In particular, once you
+have thought about the review questions, done the drill, and worked on a few exercises, you’ll often
+find that you have to go back to reread a few sections and that several days have gone by. We have
+clustered the chapters into “parts” focused on a major topic, such as input/output. These parts make
+good units of review.
+
+Common praise for a textbook is “It answered all my questions just as I thought of them!” That’s an
+ideal for minor technical questions, and early readers have observed the phenomenon with this book.
+However, that cannot be the whole ideal. We raise questions that a novice would probably not think
+of. We aim to ask and answer questions that you need to consider when writing quality software for
+the use of others. Learning to ask the right (often hard) questions is an essential part of learning to
+think as a programmer. Asking only the easy and obvious questions would make you feel good, but it
+wouldn’t help make you a programmer.
+
+We try to respect your intelligence and to be considerate about your time. In our presentation, we
+aim for professionalism rather than cuteness, and we’d rather understate a point than hype it. We try
+not to exaggerate the importance of a programming technique or a language feature, but please don’t
+underestimate a simple statement like “This is often useful.” If we quietly emphasize that something is
+important, we mean that you’ll sooner or later waste days if you don’t master it. Our use of humor is
+more limited than we would have preferred, but experience shows that people’s ideas of what is
+funny differ dramatically and that a failed attempt at humor can be confusing.
+
+We do not pretend that our ideas or the tools offered are perfect. No tool, library, language, or
+technique is “the solution” to all of the many challenges facing a programmer. At best, it can help you
+to develop and express your solution. We try hard to avoid “white lies”; that is, we refrain from
+oversimplified explanations that are clear and easy to understand, but not true in the context of real
+languages and real problems. On the other hand, this book is not a reference; for more precise and
+complete descriptions of C++, see Bjarne Stroustrup, The C++ Programming Language, Fourth
+Edition (Addison-Wesley, 2013), and the ISO C++ standard.
+
+0.1.2 Drills, exercises, etc.
+
+Programming is not just an intellectual activity, so writing programs is necessary to master
+programming skills. We provide two levels of programming practice:
+
+• Drills: A drill is a very simple exercise devised to develop practical, almost mechanical
+skills. A drill usually consists of a sequence of modifications of a single program. You should
+do every drill. A drill is not asking for deep understanding, cleverness, or initiative. We
+consider the drills part of the basic fabric of the book. If you haven’t done the drills, you have
+not “done” the book.
+• Exercises: Some exercises are trivial and others are very hard, but most are intended to leave
+some scope for initiative and imagination. If you are serious, you’ll do quite a few exercises. At
+
+least do enough to know which are difficult for you. Then do a few more of those. That’s how
+you’ll learn the most. The exercises are meant to be manageable without exceptional
+cleverness, rather than to be tricky puzzles. However, we hope that we have provided exercises
+that are hard enough to challenge anybody and enough exercises to exhaust even the best
+student’s available time. We do not expect you to do them all, but feel free to try.
+
+In addition, we recommend that you (every student) take part in a small project (and more if time
+allows for it). A project is intended to produce a complete useful program. Ideally, a project is done
+by a small group of people (e.g., three people) working together for about a month while working
+through the chapters in Part III. Most people find the projects the most fun and what ties everything
+together.
+
+Some people like to put the book aside and try some examples before reading to the end of a
+chapter; others prefer to read ahead to the end before trying to get code to run. To support readers
+with the former preference, we provide simple suggestions for practical work labeled “Try this” at
+natural breaks in the text. A Try this is generally in the nature of a drill focused narrowly on the topic
+that precedes it. If you pass a Try this without trying – maybe because you are not near a computer or
+you find the text riveting — do return to it when you do the chapter drill; a Try this either
+complements the chapter drill or is a part of it.
+
+At the end of each chapter you’ll find a set of review questions. They are intended to point you to
+the key ideas explained in the chapter. One way to look at the review questions is as a complement to
+the exercises: the exercises focus on the practical aspects of programming, whereas the review
+questions try to help you articulate the ideas and concepts. In that, they resemble good interview
+questions.
+
+The “Terms” section at the end of each chapter presents the basic vocabulary of programming and
+of C++. If you want to understand what people say about programming topics and to articulate your
+own ideas, you should know what each means.
+
+Learning involves repetition. Our ideal is to make every important point at least twice and to
+
+reinforce it with exercises.
+
+0.1.3 What comes after this book?
+
+At the end of this book, will you be an expert at programming and at C++? Of course not! When done
+well, programming is a subtle, deep, and highly skilled art building on a variety of technical skills.
+You should no more expect to be an expert at programming in four months than you should expect to
+be an expert in biology, in math, in a natural language (such as Chinese, English, or Danish), or at
+playing the violin in four months — or in half a year, or a year. What you should hope for, and what
+you can expect if you approach this book seriously, is to have a really good start that allows you to
+write relatively simple useful programs, to be able to read more complex programs, and to have a
+good conceptual and practical background for further work.
+
+The best follow-up to this initial course is to work on a real project developing code to be used by
+
+someone else. After that, or (even better) in parallel with a real project, read either a professional-
+level general textbook (such as Stroustrup, The C++ Programming Language), a more specialized
+book relating to the needs of your project (such as Qt for GUI, or ACE for distributed programming),
+
+or a textbook focusing on a particular aspect of C++ (such as Koenig and Moo, Accelerated C++;
+Sutter’s Exceptional C++; or Gamma et al., Design Patterns). For more references, see §0.6 or the
+Bibliography section at the back of the book.
+
+Eventually, you should learn another programming language. We don’t consider it possible to be a
+
+professional in the realm of software — even if you are not primarily a programmer — without
+knowing more than one language.
+
+0.2 A philosophy of teaching and learning
+What are we trying to help you learn? And how are we approaching the process of teaching? We try
+to present the minimal concepts, techniques, and tools for you to do effective practical programs,
+including
+
+• Program organization
+• Debugging and testing
+• Class design
+• Computation
+• Function and algorithm design
+• Graphics (two-dimensional only)
+• Graphical user interfaces (GUIs)
+• Text manipulation
+• Regular expression matching
+• Files and stream input and output (I/O)
+• Memory management
+• Scientific/numerical/engineering calculations
+• Design and programming ideals
+• The C++ standard library
+• Software development strategies
+• C-language programming techniques
+
+Working our way through these topics, we cover the programming techniques called procedural
+programming (as with the C programming language), data abstraction, object-oriented programming,
+and generic programming. The main topic of this book is programming, that is, the ideals, techniques,
+and tools of expressing ideas in code. The C++ programming language is our main tool, so we
+describe many of C++’s facilities in some detail. But please remember that C++ is just a tool, rather
+than the main topic of this book. This is “programming using C++,” not “C++ with a bit of
+programming theory.”
+
+Each topic we address serves at least two purposes: it presents a technique, concept, or principle
+
+and also a practical language or library feature. For example, we use the interface to a two-
+dimensional graphics system to illustrate the use of classes and inheritance. This allows us to be
+economical with space (and your time) and also to emphasize that programming is more than simply
+
+slinging code together to get a result as quickly as possible. The C++ standard library is a major
+source of such “double duty” examples — many even do triple duty. For example, we introduce the
+standard library vector, use it to illustrate widely useful design techniques, and show many of the
+programming techniques used to implement it. One of our aims is to show you how major library
+facilities are implemented and how they map to hardware. We insist that craftsmen must understand
+their tools, not just consider them “magical.”
+
+Some topics will be of greater interest to some programmers than to others. However, we
+
+encourage you not to prejudge your needs (how would you know what you’ll need in the future?) and
+at least look at every chapter. If you read this book as part of a course, your teacher will guide your
+selection.
+
+We characterize our approach as “depth-first.” It is also “concrete-first” and “concept-based.”
+First, we quickly (well, relatively quickly, Chapters 1–11) assemble a set of skills needed for writing
+small practical programs. In doing so, we present a lot of tools and techniques in minimal detail. We
+focus on simple concrete code examples because people grasp the concrete faster than the abstract.
+That’s simply the way most humans learn. At this initial stage, you should not expect to understand
+every little detail. In particular, you’ll find that trying something slightly different from what just
+worked can have “mysterious” effects. Do try, though! And please do the drills and exercises we
+provide. Just remember that early on you just don’t have the concepts and skills to accurately estimate
+what’s simple and what’s complicated; expect surprises and learn from them.
+
+We move fast in this initial phase — we want to get you to the point where you can write
+
+interesting programs as fast as possible. Someone will argue, “We must move slowly and carefully;
+we must walk before we can run!” But have you ever watched a baby learning to walk? Babies really
+do run by themselves before they learn the finer skills of slow, controlled walking. Similarly, you
+will dash ahead, occasionally stumbling, to get a feel of programming before slowing down to gain
+the necessary finer control and understanding. You must run before you can walk!
+
+It is essential that you don’t get stuck in an attempt to learn “everything” about some language detail
+
+or technique. For example, you could memorize all of C++’s built-in types and all the rules for their
+use. Of course you could, and doing so might make you feel knowledgeable. However, it would not
+make you a programmer. Skipping details will get you “burned” occasionally for lack of knowledge,
+but it is the fastest way to gain the perspective needed to write good programs. Note that our
+approach is essentially the one used by children learning their native language and also the most
+effective approach used to teach foreign languages. We encourage you to seek help from teachers,
+friends, colleagues, instructors, Mentors, etc. on the inevitable occasions when you are stuck. Be
+assured that nothing in these early chapters is fundamentally difficult. However, much will be
+unfamiliar and might therefore feel difficult at first.
+
+Later, we build on the initial skills to broaden your base of knowledge and skills. We use examples
+
+and exercises to solidify your understanding, and to provide a conceptual base for programming.
+
+We place a heavy emphasis on ideals and reasons. You need ideals to guide you when you look for
+
+practical solutions — to know when a solution is good and principled. You need to understand the
+reasons behind those ideals to understand why they should be your ideals, why aiming for them will
+help you and the users of your code. Nobody should be satisfied with “because that’s the way it is” as
+an explanation. More importantly, an understanding of ideals and reasons allows you to generalize
+from what you know to new situations and to combine ideas and tools in novel ways to address new
+problems. Knowing “why” is an essential part of acquiring programming skills. Conversely, just
+memorizing lots of poorly understood rules and language facilities is limiting, a source of errors, and
+a massive waste of time. We consider your time precious and try not to waste it.
+
+Many C++ language-technical details are banished to appendices and manuals, where you can look
+them up when needed. We assume that you have the initiative to search out information when needed.
+Use the index and the table of contents. Don’t forget the online help facilities of your compiler, and
+the web. Remember, though, to consider every web resource highly suspect until you have reason to
+believe better of it. Many an authoritative-looking website is put up by a programming novice or
+someone with something to sell. Others are simply outdated. We provide a collection of links and
+information on our support website: www.stroustrup.com/Programming.
+
+Please don’t be too impatient for “realistic” examples. Our ideal example is the shortest and
+simplest code that directly illustrates a language facility, a concept, or a technique. Most real-world
+examples are far messier than ours, yet do not consist of more than a combination of what we
+demonstrate. Successful commercial programs with hundreds of thousands of lines of code are based
+on techniques that we illustrate in a dozen 50-line programs. The fastest way to understand real-
+world code is through a good understanding of the fundamentals.
+
+On the other hand, we do not use “cute examples involving cuddly animals” to illustrate our points.
+We assume that you aim to write real programs to be used by real people, so every example that is not
+presented as language-technical is taken from a real-world use. Our basic tone is that of professionals
+addressing (future) professionals.
+
+0.2.1 The order of topics
+
+There are many ways to teach people how to program. Clearly, we don’t subscribe to the popular “the
+way I learned to program is the best way to learn” theories. To ease learning, we early on present
+topics that would have been considered advanced only a few years ago. Our ideal is for the topics we
+present to be driven by problems you meet as you learn to program, to flow smoothly from topic to
+topic as you increase your understanding and practical skills. The major flow of this book is more
+like a story than a dictionary or a hierarchical order.
+
+It is impossible to learn all the principles, techniques, and language facilities needed to write a
+program at once. Consequently, we have to choose a subset of principles, techniques, and features to
+start with. More generally, a textbook or a course must lead students through a series of subsets. We
+consider it our responsibility to select topics and to provide emphasis. We can’t just present
+everything, so we must choose; what we leave out is at least as important as what we leave in — at
+each stage of the journey.
+
+For contrast, it may be useful for you to see a list of (severely abbreviated) characterizations of
+
+approaches that we decided not to take:
+
+• “C first”: This approach to learning C++ is wasteful of students’ time and leads to poor
+programming practices by forcing students to approach problems with fewer facilities,
+techniques, and libraries than necessary. C++ provides stronger type checking than C, a
+standard library with better support for novices, and exceptions for error handling.
+• Bottom-up: This approach distracts from learning good and effective programming practices.
+By forcing students to solve problems with insufficient support from the language and libraries,
+it promotes poor and wasteful programming practices.
+• “If you present something, you must present it fully”: This approach implies a bottom-up
+approach (by drilling deeper and deeper into every topic touched). It bores novices with
+technical details they have no interest in and quite likely will not need for years to come. Once
+you can program, you can look up technical details in a manual. Manuals are good at that,
+whereas they are awful for initial learning of concepts.
+• Top-down: This approach, working from first principles toward details, tends to distract
+readers from the practical aspects of programming and force them to concentrate on high-level
+concepts before they have any chance of appreciating their importance. For example, you
+simply can’t appreciate proper software development principles before you have learned how
+easy it is to make a mistake in a program and how hard it can be to correct it.
+• “Abstract first”: Focusing on general principles and protecting the student from nasty real-
+world constraints can lead to a disdain for real-world problems, languages, tools, and
+hardware constraints. Often, this approach is supported by “teaching languages” that cannot be
+used later and (deliberately) insulate students from hardware and system concerns.
+• “Software engineering principles first”: This approach and the abstract-first approach tend to
+share the problems of the top-down approach: without concrete examples and practical
+experience, you simply cannot appreciate the value of abstraction and proper software
+development practices.
+• “Object-oriented from day one”: Object-oriented programming is one of the best ways of
+organizing code and programming efforts, but it is not the only effective way. In particular, we
+feel that a grounding in the basics of types and algorithmic code is a prerequisite for
+appreciation of the design of classes and class hierarchies. We do use user-defined types (what
+some people would call “objects”) from day one, but we don’t show how to design a class until
+Chapter 6 and don’t show a class hierarchy until Chapter 12.
+• “Just believe in magic”: This approach relies on demonstrations of powerful tools and
+techniques without introducing the novice to the underlying techniques and facilities. This
+leaves the student guessing — and usually guessing wrong — about why things are the way they
+are, what it costs to use them, and where they can be reasonably applied. This can lead to
+overrigid following of familiar patterns of work and become a barrier to further learning.
+
+Naturally, we do not claim that these other approaches are never useful. In fact, we use several of
+these for specific subtopics where their strengths can be appreciated. However, as general
+approaches to learning programming aimed at real-world use, we reject them and apply our
+alternative: concrete-first and depth-first with an emphasis on concepts and techniques.
+
+0.2.2 Programming and programming language
+
+We teach programming first and treat our chosen programming language as secondary, as a tool. Our
+general approach can be used with any general-purpose programming language. Our primary aim is to
+help you learn general concepts, principles, and techniques. However, those cannot be appreciated in
+isolation. For example, details of syntax, the kinds of ideas that can be directly expressed, and tool
+support differ from programming language to programming language. However, many of the
+fundamental techniques for producing bug-free code, such as writing logically simple code (Chapters
+5 and 6), establishing invariants (§9.4.3), and separating interfaces from implementation details (§9.7
+and §14.1–2), vary little from programming language to programming language.
+
+Programming and design techniques must be learned using a programming language. Design, code
+organization, and debugging are not skills you can acquire in the abstract. You need to write code in
+some programming language and gain practical experience with that. This implies that you must learn
+the basics of a programming language. We say “the basics” because the days when you could learn all
+of a major industrial language in a few weeks are gone for good. The parts of C++ we present were
+chosen as the subset that most directly supports the production of good code. Also, we present C++
+features that you can’t avoid encountering either because they are necessary for logical completeness
+or are common in the C++ community.
+
+0.2.3 Portability
+
+It is common to write C++ to run on a variety of machines. Major C++ applications run on machines
+we haven’t ever heard of! We consider portability and the use of a variety of machine architectures
+and operating systems most important. Essentially every example in this book is not only ISO
+Standard C++, but also portable. Unless specifically stated, the code we present should work on
+every C++ implementation and has been tested on several machines and operating systems.
+
+The details of how to compile, link, and run a C++ program differ from system to system. It would
+be tedious to mention the details of every system and every compiler each time we need to refer to an
+implementation issue. In Appendix C, we give the most basic information about getting started using
+Visual Studio and Microsoft C++ on a Windows machine.
+
+If you have trouble with one of the popular, but rather elaborate, IDEs (integrated development
+
+environments), we suggest you try working from the command line; it’s surprisingly simple. For
+example, here is the full set of commands needed to compile, link, and execute a simple program
+consisting of two source files, my_file1.cpp and my_file2.cpp, using the GNU C++ compiler on a
+Unix or Linux system:
+
+Click here to view code image
+
+c++ –o my_program my_file1.cpp my_file2.cpp
+./my_program
+
+Yes, that really is all it takes.
+
+
