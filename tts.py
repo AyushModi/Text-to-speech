@@ -1,4 +1,3 @@
-from gtts import gTTS
 import os
 import sys
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
@@ -6,6 +5,7 @@ from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from io import StringIO
+from google.cloud import texttospeech
 
 pageNum = 1
 upper = 20
@@ -41,8 +41,12 @@ class PdfConverter:
     # convert pdf file text to string and save as a text_pdf.txt file
    def save_convert_pdf_to_txt(self):
        content = self.convert_pdf_to_txt(pageNum, upper)
+       toProceed = input("Number of characters is " + len(content) + ". Proceed (Y/n)? ")       
+       while toProceed != 'Y':
+           if (toProceed == 'n'):
+               sys.exit()
+           pageIndex = input("Proceed (Y/n)? ")
        txt_pdf = open('text_pdf.txt', 'wb')
-       
        txt_pdf.seek(0)
        txt_pdf.truncate()
 
@@ -90,7 +94,7 @@ def handleFiles():
     global pageNum
     
     if (len(sys.argv) > 1):
-        filePath = sys.argv[1]
+        filePath = sys.argv[1].replace('\\','/')
         initDirectory(filePath)
     else:
         filePath = chooseBook()
@@ -115,13 +119,36 @@ def handleFiles():
 def generateAudio(dirPath):
     myTxt = pdfConverter.convert_pdf_to_txt(pageNum, upper)
     myTxt = myTxt.replace("\n", " ")
-    language = 'en'
-    output = gTTS(text=myTxt, lang=language, slow=False)
+
+
+    # Instantiates a client
+    client = texttospeech.TextToSpeechClient()
+    # Set the text input to be synthesized
+    synthesis_input = texttospeech.types.SynthesisInput(text="Hello, World!")
+
+    # Build the voice request, select the language code ("en-US") and the ssml
+    # voice gender ("neutral")
+    voice = texttospeech.types.VoiceSelectionParams(
+        language_code='en-US',
+            name='en-US-Wavenet-D',
+            ssml_gender=texttospeech.enums.SsmlVoiceGender.MALE)
+
+    # Select the type of audio file you want returned
+    audio_config = texttospeech.types.AudioConfig(
+        audio_encoding=texttospeech.enums.AudioEncoding.MP3)
+
+    # Perform the text-to-speech request on the text input with the selected
+    # voice parameters and audio file type
+    response = client.synthesize_speech(synthesis_input, voice, audio_config)
+
+
     print("Complete. Saving audio to file")
     name = str(pageNum)+"-"+str(upper)+".mp3"
     audioPath = dirPath + "/output/" + name
-    output.save(audioPath)
-    print("Complete")
+    with open(audioPath, 'wb') as out:
+        # Write the response to the output file.
+        out.write(response.audio_content)
+        print('Audio content written to file ' + audioPath)
 
 
 if __name__ == '__main__':
