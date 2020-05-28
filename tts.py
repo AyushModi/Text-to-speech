@@ -64,7 +64,7 @@ def chooseBook():
     bookPaths = f.readlines()
     f.close()
     for index, path in enumerate(bookPaths):
-        print(str(index + 1) + ")\t" + os.path.basename(path))
+        print(str(index + 1) + ")\t" + os.path.basename(path.strip()))
 
     pageIndex = input("Pick book number to generate speech for the next 20 pages for that book: ")
     while not pageIndex.isdigit() or int(pageIndex) > len(bookPaths):
@@ -140,7 +140,9 @@ def getDictation(text, generatedOutput):
 
     # Select the type of audio file you want returned
     audio_config = texttospeech.types.AudioConfig(
-        audio_encoding=texttospeech.enums.AudioEncoding.MP3)
+        audio_encoding=texttospeech.enums.AudioEncoding.MP3,
+        effects_profile_id = ['headphone-class-device']
+        )
 
     # Perform the text-to-speech request on the text input with the selected
     # voice parameters and audio file type
