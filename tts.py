@@ -1,11 +1,12 @@
 import os
-import webbrowser
 import sys
+import webbrowser
+import traceback
+from io import StringIO, BytesIO
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
-from io import StringIO, BytesIO
 from google.cloud import texttospeech
 from pydub import AudioSegment
 
@@ -154,24 +155,25 @@ def getDictation(text, generatedOutput):
     # Instantiates a client
     client = texttospeech.TextToSpeechClient()
     # Set the text input to be synthesized
-    synthesis_input = texttospeech.types.SynthesisInput(text=text)
+    synthesis_input = texttospeech.SynthesisInput(text=text)
 
     # Build the voice request, select the language code ("en-US") and the ssml
     # voice gender ("neutral")
-    voice = texttospeech.types.VoiceSelectionParams(
+    voice = texttospeech.VoiceSelectionParams(
         language_code='en-US',
         name='en-US-Wavenet-D',
-        ssml_gender=texttospeech.enums.SsmlVoiceGender.MALE)
+        ssml_gender=texttospeech.SsmlVoiceGender.MALE)
 
     # Select the type of audio file you want returned
-    audio_config = texttospeech.types.AudioConfig(
-        audio_encoding=texttospeech.enums.AudioEncoding.MP3,
+    
+    audio_config = texttospeech.AudioConfig(
+        audio_encoding=texttospeech.AudioEncoding.MP3,
         effects_profile_id = ['headphone-class-device']
         )
 
     # Perform the text-to-speech request on the text input with the selected
     # voice parameters and audio file type
-    response = client.synthesize_speech(synthesis_input, voice, audio_config)
+    response = client.synthesize_speech(input=synthesis_input, voice=voice,audio_config=audio_config)
     s = BytesIO(response.audio_content)
     generatedOutput += AudioSegment.from_file(s, format='mp3')
     generatedOutput += AudioSegment.silent(duration=750)
@@ -215,10 +217,11 @@ def generateAudio(myTxt, dirPath, generatedOutput):
         print("Complete. Saving audio to file.")
         if (len(sentences) > 0):
             generatedOutput = getDictation(sentences, generatedOutput)
-    except:
-        print("Unexpected error.\n", sys.exc_info()[0])
+    except Exception as e:
+        print("\n\nUnexpected error.\n-----------------")
+        traceback.print_exc()
+        print("-----------------\n\nIncomplete audio generated. Saving to file anyway.")
     finally:
-        print("Saving audio to file.")
         name = str(pageNum)+"-"+str(upper)+".mp3"
         audioPath = dirPath + "/output/" + name
         generatedOutput.export(audioPath, format='mp3')
