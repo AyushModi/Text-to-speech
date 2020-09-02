@@ -13,7 +13,7 @@ from pydub import AudioSegment
 pageNum = 1
 upper = 20
 overwritePageNum = True
-API_PATH = "./tts_api.json"
+API_PATH = os.path.join(os.path.dirname(__file__), "tts_api.json")
 class PdfConverter:
 
    def __init__(self, file_path):
