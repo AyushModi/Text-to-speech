@@ -1,2 +1,4 @@
 venv/
-/text_pdf.txt
+Resources/text_pdf.txt
+Resources/Book path.txt
+.vscode/

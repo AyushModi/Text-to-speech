@@ -2,149 +2,107 @@ import os
 import sys
 import webbrowser
 import traceback
-from io import StringIO, BytesIO
-from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
-from pdfminer.converter import TextConverter
-from pdfminer.layout import LAParams
-from pdfminer.pdfpage import PDFPage
+from scripts.pdfReader import PdfConverter
+from io import BytesIO
 from google.cloud import texttospeech
 from pydub import AudioSegment
 
-pageNum = 1
+lower = 1
 upper = 20
 overwritePageNum = True
-API_PATH = os.path.join(os.path.dirname(__file__), "tts_api.json")
-class PdfConverter:
-
-   def __init__(self, file_path):
-       self.file_path = file_path
-    # convert pdf file to a string which has space among words 
-   def convert_pdf_to_txt(self, lower, upper):
-       rsrcmgr = PDFResourceManager()
-       retstr = StringIO()
-       codec = 'utf-8'  # 'utf16','utf-8'
-       laparams = LAParams()
-       device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
-       fp = open(self.file_path, 'rb')
-       interpreter = PDFPageInterpreter(rsrcmgr, device)
-       password = ""
-       maxpages = 0
-       caching = True
-       pagenos = set()
-       lower = lower - 1
-       for pageNum, page in enumerate(PDFPage.get_pages(fp)):
-           if pageNum >= upper:
-               break
-           if pageNum >= lower:
-               interpreter.process_page(page)
-       fp.close()
-       device.close()
-       str = retstr.getvalue()
-       retstr.close()
-       return str
-    # convert pdf file text to string and save as a text_pdf.txt file
-   def save_convert_pdf_to_txt(self):
-       content = self.convert_pdf_to_txt(pageNum, upper)
-       if (content == None): 
-           print("Error in reading pdf. Exiting")
-           sys.exit(1)
-       content = content.replace("\n", " ").replace("\t", " ")
-       content = ' '.join(content.split())
-       print("Complete. Saving copy of text for review")  
-       print("Number of characters is " + str(len(content)))   
-       with open('text_pdf.txt', 'wb') as txt_pdf:
-           txt_pdf.seek(0)
-           txt_pdf.truncate()
-           txt_pdf.write(content.encode('utf-8'))
-       toProceed = input("Proceed to generating audio (Y/n)? ")       
-       while toProceed != 'Y':
-           if (toProceed == 'n'):
-               sys.exit()
-           pageIndex = input("Proceed (Y/n)? ")
-       return content
+API_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), 'Resources', "tts_api.json"))
+book_paths = os.path.abspath(os.path.join(os.path.dirname(__file__), 'Resources', 'Book paths.txt'))
 
 def chooseBook():
-    f = open(r"Book paths.txt", "r")
-    bookPaths = f.readlines()
-    bookPaths = list(map(lambda x: x.strip(), bookPaths))
-    newPaths = []
-    deletions = []
-    f.close()
-    for path in bookPaths:
-        if (os.path.isfile(path)):
-            newPaths.append(path)
-        else:
-            deletions.append(path)
-    if (len(deletions) > 0):
-        print("Invalid path(s) in 'Book paths.txt'")
-        for invldPath in deletions:
-            print("\tDeleting:\t" + invldPath)
-        print("\n")
-        with open("Book paths.txt", "w") as f:
-            for path in newPaths:
-                f.write(path + "\n")
-    print("Book paths:")
-    for index, path in enumerate(newPaths):
-        print(str(index + 1) + ")\t" + os.path.basename(path))  
+    if os.path.isfile(book_paths):  
+        with open(book_paths, "r") as f:
+            bookPaths = f.readlines()
+            bookPaths = list(map(lambda x: x.strip(), bookPaths))
+            newPaths = set()
+            deletions = set()
+        
+        for path in bookPaths:
+            if (os.path.isfile(path)):
+                newPaths.add(path)
+            else:
+                deletions.add(path)
+        if (len(deletions) > 0):
+            print("Invalid path(s) in 'Resources/Book paths.txt'")
+            for invldPath in deletions:
+                print("\tDeleting:\t" + invldPath)
+            print("\n")
+            with open(book_paths, "w") as f:
+                for path in newPaths:
+                    f.write(path + "\n")
+        print("Book paths:")
+        for index, path in enumerate(newPaths):
+            print(str(index + 1) + ")\t" + os.path.basename(path))  
 
-    pageIndex = input("Pick book number to generate speech for the next 20 pages for that book: ")
-    while not pageIndex.isdigit() or int(pageIndex) > len(bookPaths):
-        pageIndex = input("Bad input. Pick book to generate its narration: ")
-    return bookPaths[int(pageIndex) - 1]
+        pageIndex = input("Pick book number to generate speech for the next 20 pages for that book: ")
+        while not pageIndex.isdigit() or int(pageIndex) > len(bookPaths):
+            pageIndex = input("Bad input. Pick book to generate its narration: ")
+        return bookPaths[int(pageIndex) - 1]
+    else:
+        newBook = input('Enter the path to the pdf book you want to read: ')
+        while not os.path.isfile(newBook):
+            newBook = input('Invalid path. Enter the path to the pdf book you want to read: ')
+        with open(book_paths, "w") as f:
+            f.write(newBook + '\n')
+        return newBook
 
 def initDirectory(filePath):
     if (not os.path.isfile(os.path.abspath(filePath))):
-        raise FileExistsError("Not a valid file path")
+        raise FileExistsError(f"Not a valid file path: '{filePath}'" )
     else:
         filePath = os.path.abspath(filePath)
-        f = open(r"Book paths.txt", "a")
+        f = open(book_paths, "a")
         f.write(filePath + "\n")
 
 def storeRange():
-    global pageNum
+    global lower
     global upper
-    upper = pageNum + 19
-    inp = input("Proceed to generate input for pages " + str(pageNum) + "-" + str(upper) + "? ([y]/n): ") 
+    upper = lower + 19
+    inp = input("Proceed to generate input for pages " + str(lower) + "-" + str(upper) + "? ([y]/n): ") 
     if (inp != "y" and inp != "Y" and inp != ""):
-        pageNum = input("Pick start page: ")
-        while not pageNum.isdigit() or int(pageNum) == 0:
-            pageNum = input("Bad input. Pick start page: ")
-        pageNum = int(pageNum)
-        upper = input("Pick last page (currently pg." + str(pageNum+19) + "): ")
+        lower = input("Pick start page: ")
+        while not lower.isdigit() or int(lower) == 0:
+            lower = input("Bad input. Pick start page: ")
+        lower = int(lower)
+        upper = input("Pick last page (currently pg." + str(lower+19) + "): ")
         if (upper != ""):
-            while not upper.isdigit() or int(upper) < pageNum:
+            while not upper.isdigit() or int(upper) < lower:
                 upper = input("Bad input. Pick start page: ")
             upper = int(upper)
         else:
-            upper = pageNum + 19
+            upper = lower + 19
 
 def handleFiles():
-    global pageNum
+    global lower
 
-    if (len(sys.argv) > 1):
-        filePath = sys.argv[1].replace('\\','/')
+    if (len(sys.argv) > 1):        
+        filePath = sys.argv[1]
         initDirectory(filePath)
     else:
         filePath = chooseBook()
     
     print("Book chosen\t" + os.path.basename(filePath))
     dirPath = os.path.dirname(filePath)
-    pagePath = dirPath + "/pageNum.txt"
+    pagePath = os.path.abspath(os.path.join(dirPath, 'pageNum.txt'))
     if not os.path.isfile(pagePath):
-        pageNum = 1
-        f = open(pagePath, "w")
-        f.write("1")
-        f.close()
+        lower = 1
+        with open(pagePath, "w") as f:
+            f.write("1")        
     else:
         with open(pagePath,"r+") as pageNumReader:
-            pageNum = int(pageNumReader.readlines()[0])
+            lower = int(pageNumReader.readlines()[0])
     storeRange()
     with open(pagePath,"r+") as updater:
         updater.seek(0)
         updater.truncate()
         updater.write(str(upper + 1))  
-    if not os.path.isdir(dirPath + "/output"):
-        os.mkdir(dirPath+"/output")
+    outputFolder = os.path.abspath(os.path.join(dirPath, "output"))
+    if not os.path.isdir(outputFolder):
+        os.mkdir(outputFolder)
     print("\n")
     return dirPath, filePath
 
@@ -222,25 +180,28 @@ def generateAudio(myTxt, dirPath, generatedOutput):
         traceback.print_exc()
         print("-----------------\n\nIncomplete audio generated. Saving to file anyway.")
     finally:
-        name = str(pageNum)+"-"+str(upper)+".mp3"
+        name = str(lower)+"-"+str(upper)+".mp3"
         audioPath = dirPath + "/output/" + name
         generatedOutput.export(audioPath, format='mp3')
         print('Audio content written to file ' + audioPath)
         webbrowser.open(os.path.realpath(dirPath + "/output/"))
 
 def setCredentials():
-    abs_path = os.path.abspath(API_PATH)
-    if (not os.path.isfile(abs_path)):
-        raise FileExistsError("API path is not valid:\t" + os.path.abspath(abs_path))
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=abs_path
+    if (not os.path.isfile(API_PATH)):
+        raise FileExistsError("API path is not valid:\t" + API_PATH)
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=API_PATH
+
+# def init():
+#     sys.path.insert(0,os.path.dirname(__file__))
 
 if __name__ == '__main__':
+    # init()
     generatedOutput = AudioSegment.silent(duration=0)
     setCredentials()
     dirPath, filePath = handleFiles()     
     pdfConverter = PdfConverter(file_path=filePath)
     print("Extracting text from pdf...")      
-    text = pdfConverter.save_convert_pdf_to_txt()
+    text = pdfConverter.save_convert_pdf_to_txt(lower, upper)
     print("Generating audio")
     generateAudio(text, dirPath, generatedOutput)
     
