@@ -80,10 +80,10 @@ def handleFiles():
     global lower
 
     if (len(sys.argv) > 1):        
-        filePath = sys.argv[1]
+        filePath = os.path.abspath(sys.argv[1])
         initDirectory(filePath)
     else:
-        filePath = chooseBook()
+        filePath = os.path.abspath(chooseBook())
     
     print("Book chosen\t" + os.path.basename(filePath))
     dirPath = os.path.dirname(filePath)
@@ -181,21 +181,19 @@ def generateAudio(myTxt, dirPath, generatedOutput):
         print("-----------------\n\nIncomplete audio generated. Saving to file anyway.")
     finally:
         name = str(lower)+"-"+str(upper)+".mp3"
-        audioPath = dirPath + "/output/" + name
+        folderPath = os.path.abspath(os.path.join(dirPath, 'output'))
+        audioPath = os.path.abspath(os.path.join(folderPath, name))
         generatedOutput.export(audioPath, format='mp3')
         print('Audio content written to file ' + audioPath)
-        webbrowser.open(os.path.realpath(dirPath + "/output/"))
+        webbrowser.open(os.path.realpath(folderPath))
 
 def setCredentials():
     if (not os.path.isfile(API_PATH)):
         raise FileExistsError("API path is not valid:\t" + API_PATH)
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=API_PATH
 
-# def init():
-#     sys.path.insert(0,os.path.dirname(__file__))
 
 if __name__ == '__main__':
-    # init()
     generatedOutput = AudioSegment.silent(duration=0)
     setCredentials()
     dirPath, filePath = handleFiles()     
